@@ -1,6 +1,6 @@
 {
     "version" : 2,
     "builds" : [
-        {"src": "test.py", "use": "@vercel/python"}
+        {"src": "neko.py", "use": "@vercel/python"}
     ]  
 }
