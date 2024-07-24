@@ -3,8 +3,9 @@ import discord # type: ignore
 from discord.ext import commands # type: ignore
 import requests # type: ignore
 import random
+import gdown # type: ignore
 
-url = 'https://drive.google.com/u/0/uc?id=1RZa_EFxsk7OmzipsD01CuwWLJvf_oxcE&export=download'
+url = 'https://drive.google.com/u/0/uc?id=1RZa_EFxsk7OmzipsD01CuwWLJvf_oxcE'
 output = 'token.txt'
 gdown.download(url, output, quiet=False)
 
