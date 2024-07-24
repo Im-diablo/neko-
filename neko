@@ -1,0 +1,55 @@
+const { Client, GatewayIntentBits } = require("discord.js");
+const axios = require("axios");
+const keep_alive = require("./keep_alive.js");
+
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+    ],
+});
+
+// Get the token from environment variables
+const TOKEN = process.env.DISCORD_BOT_TOKEN;
+
+client.once("ready", () => {
+    console.log("Cat Bot is online!");
+});
+
+client.on("messageCreate", async (message) => {
+    if (message.author.bot) return;
+
+    if (message.content === "!meow") {
+        message.channel.send("Meow! 🐱");
+    }
+
+    if (message.content === "!catfact") {
+        const facts = [
+            "Cats have five toes on their front paws, but only four toes on their back paws.",
+            "Cats sleep for 70% of their lives.",
+            "A group of cats is called a clowder.",
+            "Cats can rotate their ears 180 degrees.",
+            "A cat’s nose is as unique as a human's fingerprint.",
+        ];
+        const randomFact = facts[Math.floor(Math.random() * facts.length)];
+        message.channel.send(randomFact);
+    }
+
+    if (message.content === "!nekopic") {
+        try {
+            const response = await axios.get(
+                "https://api.thecatapi.com/v1/images/search",
+            );
+            const catImageUrl = response.data[0].url;
+            message.channel.send(catImageUrl);
+        } catch (error) {
+            console.error("Error fetching cat image:", error);
+            message.channel.send(
+                "Sorry, I could not fetch a cat image at this time.",
+            );
+        }
+    }
+});
+
+client.login(TOKEN);
