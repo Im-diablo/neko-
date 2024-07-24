@@ -4,7 +4,7 @@ from discord.ext import commands # type: ignore
 import requests # type: ignore
 import random
 
-url = 'https://drive.google.com/file/d/1RZa_EFxsk7OmzipsD01CuwWLJvf_oxcE/view?usp=sharing'
+url = 'https://drive.google.com/u/0/uc?id=1RZa_EFxsk7OmzipsD01CuwWLJvf_oxcE&export=download'
 output = 'token.txt'
 gdown.download(url, output, quiet=False)
 
