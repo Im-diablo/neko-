@@ -21,7 +21,7 @@ async def on_ready():
     print("Cat Bot is online!")
 
 @bot.event
-@bot.command(name="play")
+@bot.command(name="on_message")
 async def on_message(message):
     if message.author.bot:
         return
