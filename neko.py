@@ -1,6 +1,6 @@
 import os
 import discord # type: ignore
-from discord.ext import app_commands
+#from discord import app_commands
 from discord.ext import commands # type: ignore
 import requests # type: ignore
 import random
@@ -50,8 +50,10 @@ async def on_message(message):
             await message.channel.send("Sorry, I could not fetch a cat image at this time.")
 
     await bot.process_commands(message)
-    @bot.tree.command(name=="yoo")
+   ''' @bot.tree.command(name=="yoo")
 async def yoo(interaction: discord.interaction):
     await interaction.response.send_message(f"yoo {interaction.user.mention}! This is a slash command!"
     ephemeral=True)
+    '''
+    
 bot.run(TOKEN)
