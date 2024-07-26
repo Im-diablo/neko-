@@ -1,5 +1,6 @@
 import os
 import discord # type: ignore
+from discord.ext import app_commands
 from discord.ext import commands # type: ignore
 import requests # type: ignore
 import random
@@ -52,5 +53,5 @@ async def on_message(message):
     @bot.tree.command(name=="yoo")
 async def yoo(interaction: discord.interaction):
     await interaction.response.send_message(f"yoo {interaction.user.mention}! This is a slash command!"
-    ephmeral=True)
+    ephemeral=True)
 bot.run(TOKEN)
