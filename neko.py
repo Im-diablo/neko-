@@ -49,5 +49,8 @@ async def on_message(message):
             await message.channel.send("Sorry, I could not fetch a cat image at this time.")
 
     await bot.process_commands(message)
-
+    @bot.tree.command(name=="yoo")
+async def yoo(interaction: discord.interaction):
+    await interaction.response.send_message(f"yoo {interaction.user.mention}! This is a slash command!"
+    ephmeral=True)
 bot.run(TOKEN)
