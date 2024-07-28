@@ -61,8 +61,8 @@ async def meow(interaction: discord.Interaction):
 @bot.tree.command(name="catfact")
 async def catfact(interaction: discord.Interaction):
     try:
-        response = requests.get("https://catfact.ninja/fact?max_length=140")
-        cat_fact = response.json()[0]["url"]
+        response = requests.get("https://catfact.ninja/fact")
+        cat_fact = response.json()["fact"]
         await interaction.response.send_message(cat_fact)
     except Exception as e:
         print(f"Error fetching cat image: {e}")
