@@ -35,15 +35,13 @@ async def on_message(message):
         await message.channel.send("Meow! ")
 
     if message.content == "!catfact":
-        facts = [
-            "Cats have five toes on their front paws, but only four toes on their back paws.",
-            "Cats sleep for 70% of their lives.",
-            "A group of cats is called a clowder.",
-            "Cats can rotate their ears 180 degrees.",
-            "A cat’s nose is as unique as a human's fingerprint.",
-        ]
-        random_fact = random.choice(facts)
-        await message.channel.send(random_fact)
+        try:
+            response = requests.get("https://catfact.ninja/fact?max_length=140")
+            cat_fact = response.json()[0]["url"]
+            await message.channel.send(cat_fact)
+        except Exception as e:
+            print(f"Error fetching cat image: {e}")
+            await message.channel.send("Sorry, I could not fetch a cat fact at this time.")
 
     if message.content == "!nekopic":
         try:
@@ -55,11 +53,6 @@ async def on_message(message):
             await message.channel.send("Sorry, I could not fetch a cat image at this time.")
 
     await bot.process_commands(message)
-
-
-
-
-
 
 @bot.tree.command(name="meow")
 async def meow(interaction: discord.Interaction):
