@@ -36,12 +36,12 @@ async def on_message(message):
 
     if message.content == "!catfact":
         try:
-            response = requests.get("https://catfact.ninja/fact?max_length=140")
-            cat_fact = response.json()[0]["url"]
+            response = requests.get("https://catfact.ninja/fact")
+            cat_fact = response.json()["fact"]
             await message.channel.send(cat_fact)
         except Exception as e:
-            print(f"Error fetching cat image: {e}")
-            await message.channel.send("Sorry, I could not fetch a cat fact at this time.")
+            print(f"Error fetching cat fact: {e}")
+            await message.channel.send("Sorry, I could not fetch a fact at this time.")
 
     if message.content == "!nekopic":
         try:
