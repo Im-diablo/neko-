@@ -27,7 +27,7 @@ async def on_ready():
         print(e)
 
 @bot.event
-async def on_ready(message):
+async def on_message(message):
     if message.author.bot:
         return
 
@@ -56,32 +56,33 @@ async def on_ready(message):
 
     await bot.process_commands(message)
 
-@bot.tree.command()
-async def on_message(message):
-    if message.author.bot:
-        return
+facts = [
+    "Cats have five toes on their front paws, but only four toes on their back paws.",
+    "Cats sleep for 70% of their lives.",
+    "A group of cats is called a clowder.",
+    "Cats can rotate their ears 180 degrees.",
+    "A cat’s nose is as unique as a human's fingerprint.",
+]
+random_fact = random.choice(facts)
 
-    if message.content == "meow":
-        await message.response.send_message(f"meow {message.user.mention}!" , ephemeral=True)
 
-    if message.content == "catfact":
-        facts = [
-            "Cats have five toes on their front paws, but only four toes on their back paws.",
-            "Cats sleep for 70% of their lives.",
-            "A group of cats is called a clowder.",
-            "Cats can rotate their ears 180 degrees.",
-            "A cat’s nose is as unique as a human's fingerprint.",
-        ]
-        random_fact = random.choice(facts)
-        await message.response.send_message(random_fact , ephemeral=True)
 
-    if message.content == "nekopic":
-        try:
-            response = requests.get("https://api.thecatapi.com/v1/images/search")
-            cat_image_url = response.json()[0]["url"]
-            await message.response.send_message(cat_image_url , ephemeral=True)
-        except Exception as e:
-            print(f"Error fetching cat image: {e}")
-            await message.response.send_message("Sorry, I could not fetch a cat image at this time." , ephemeral=True)
+@bot.tree.command(name="meow")
+async def meow(interaction: discord.Interaction):
+    await interaction.response.send_message(f"meow😼 {interaction.user.mention}!", ephemeral=True)
+
+@bot.tree.command(name="catfact")
+async def catfact(interaction: discord.Interaction):
+    await interaction.response.send_message(random_fact)
+
+@bot.tree.command(name="nekopic")
+async def necopic(interaction: discord.Interaction):
+    try:
+        response = requests.get("https://api.thecatapi.com/v1/images/search")
+        cat_image_url = response.json()[0]["url"]
+        await interaction.response.send_message(cat_image_url)
+    except Exception as e:
+        print(f"Error fetching cat image: {e}")
+        await interaction.response.send_message("Sorry, I could not fetch a cat image at this time.")
 
 bot.run(TOKEN)
