@@ -56,14 +56,8 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
-facts = [
-    "Cats have five toes on their front paws, but only four toes on their back paws.",
-    "Cats sleep for 70% of their lives.",
-    "A group of cats is called a clowder.",
-    "Cats can rotate their ears 180 degrees.",
-    "A cat’s nose is as unique as a human's fingerprint.",
-]
-random_fact = random.choice(facts)
+
+
 
 
 
@@ -73,7 +67,13 @@ async def meow(interaction: discord.Interaction):
 
 @bot.tree.command(name="catfact")
 async def catfact(interaction: discord.Interaction):
-    await interaction.response.send_message(random_fact)
+    try:
+        response = requests.get("https://catfact.ninja/fact?max_length=140")
+        cat_fact = response.json()[0]["url"]
+        await interaction.response.send_message(cat_fact)
+    except Exception as e:
+        print(f"Error fetching cat image: {e}")
+        await interaction.response.send_message("Sorry, I could not fetch a cat fact at this time.")
 
 @bot.tree.command(name="nekopic")
 async def necopic(interaction: discord.Interaction):
